@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { TicketCreateComponent } from './tickets/ticket-create/ticket-create/ticket-create.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TicketCreateComponent
   ],
   imports: [
     BrowserModule
