@@ -1,0 +1,16 @@
+<ul *ngIf="tickets.length > 0">
+  <li *ngFor="let ticket of tickets">
+    <ul>
+      <li>Problème : {{ ticket.issue }}</li>
+      <li>Description : {{ ticket.description }}</li>
+      <li>Tags : {{ ticket.tags.join(", ") }}</li>
+      <li>Type : {{ ticket.type }}</li>
+      <li>Sévérité : {{ ticket.severity }}</li>
+      <li>Priorité : {{ ticket.priority }}</li>
+      <li>Status : {{ ticket.status }}</li>
+      <li>De : {{ ticket.from }}</li>
+      <li>Créé le : {{ ticket.created }}</li>
+    </ul>
+  </li>
+</ul>
+<p *ngIf="tickets.length == 0">Rien à afficher</p>

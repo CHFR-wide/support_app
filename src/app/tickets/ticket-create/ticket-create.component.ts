@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class TicketCreateComponent {
   inputVal = '';
-  issue = 'empty';
+  issue = '';
 
   onAddTicket() {
     this.issue = this.inputVal;
