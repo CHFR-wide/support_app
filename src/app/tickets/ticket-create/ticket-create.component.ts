@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Ticket } from '../ticket.model';
+import { TicketsService } from '../tickets.service';
 
 @Component({
   selector: 'app-ticket-create',
@@ -10,8 +11,6 @@ import { Ticket } from '../ticket.model';
 export class TicketCreateComponent {
   tagIndividualInput = '';
   tagArrayInput : string[] = [];
-
-  @Output() ticketCreated = new EventEmitter<Ticket>();
 
   onAddTicket(form: NgForm) {
     if(form.invalid) return;
@@ -26,6 +25,8 @@ export class TicketCreateComponent {
       from: form.value.from,
       created: Date.now(),
     }
-    this.ticketCreated.emit(ticket)
+    this.ticketsService.addTicket(ticket)
   }
+
+  constructor(public ticketsService: TicketsService) {}
 }
