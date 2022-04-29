@@ -1,5 +1,5 @@
 <app-header></app-header>
 <main>
-  <app-ticket-create></app-ticket-create>
-  <app-ticket-list></app-ticket-list>
+  <app-ticket-create (ticketCreated)="onTicketAdded($event)"></app-ticket-create>
+  <app-ticket-list [tickets]="storedTickets"></app-ticket-list>
 </main>
