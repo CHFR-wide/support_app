@@ -1,40 +1,54 @@
-Problème :
-<input type="text" [(ngModel)]="issueInput">
-<br>
+<form (submit)="onAddTicket(postForm)" #postForm="ngForm">
 
-Description :
-<textarea rows="6" [(ngModel)]="descriptionInput"></textarea>
-<br>
+  Problème :
+  <input
+    type="text"
+    name="issue"
+    required
+    ngModel>
+  <br>
 
-Tags : <input type="text" [(ngModel)]="tagIndividualInput">
-<button (click)="onAddTag()">Ajouter</button>
-<a *ngFor="let tag of tagArrayInput; let i=index" (click)="onRemoveTag(i)"> {{ tag }} </a>
-<br>
+  Description :
+  <textarea
+    rows="6"
+    name="description"
+    required
+    ngModel></textarea>
+  <br>
 
-Type :
-<select [(ngModel)]="typeInput">
-  <option value="bug">bug</option>
-  <option value="question">question</option>
-  <option value="enhancement">amélioration</option>
-</select>
-<br>
+  Tags :
+  <input
+    type="text"
+    name="tags"
+    ngModel>
+  <br>
 
-Sévérité :
-<select [(ngModel)]="severityInput">
-  <option value="wishlist">souhait</option>
-  <option value="minor">mineur</option>
-  <option value="normal">normal</option>
-  <option value="important">important</option>
-  <option value="critical">critique</option>
-</select>
-<br>
+  Type :
+  <select name="type" required ngModel>
+    <option value="bug">bug</option>
+    <option value="question">question</option>
+    <option value="enhancement">amélioration</option>
+  </select>
+  <br>
 
-Priorité :
-<select [(ngModel)]="priorityInput">
-  <option value="low">légère</option>
-  <option value="normal">normale</option>
-  <option value="high">haute</option>
-</select>
-<br>
+  Sévérité :
+  <select name="severity" required ngModel>
+    <option value="wishlist">souhait</option>
+    <option value="minor">mineur</option>
+    <option value="normal">normal</option>
+    <option value="important">important</option>
+    <option value="critical">critique</option>
+  </select>
+  <br>
 
-<button (click)="onAddTicket()">Submit</button>
+  Priorité :
+  <select name="priority" required ngModel>
+    <option value="low">légère</option>
+    <option value="normal">normale</option>
+    <option value="high">haute</option>
+  </select>
+  <br>
+
+  <button type="submit">Submit</button>
+
+</form>

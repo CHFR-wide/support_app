@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Ticket } from '../ticket.model';
 
 @Component({
@@ -7,38 +8,24 @@ import { Ticket } from '../ticket.model';
   styleUrls: ['./ticket-create.component.css']
 })
 export class TicketCreateComponent {
-  issueInput = '';
-  descriptionInput = '';
   tagIndividualInput = '';
   tagArrayInput : string[] = [];
-  typeInput = '';
-  severityInput = '';
-  priorityInput = '';
-  statusInput = '';
-  fromInput = '';
 
   @Output() ticketCreated = new EventEmitter<Ticket>();
 
-  onAddTicket() {
+  onAddTicket(form: NgForm) {
+    if(form.invalid) return;
     const ticket: Ticket = {
-      issue: this.issueInput,
-      description: this.descriptionInput,
-      tags: this.tagArrayInput.slice(),
-      type: this.typeInput,
-      severity: this.severityInput,
-      priority: this.priorityInput,
-      status: this.statusInput,
-      from: this.fromInput,
+      issue: form.value.issue,
+      description: form.value.description,
+      tags: form.value.tags.split(','),
+      type: form.value.type,
+      severity: form.value.severity,
+      priority: form.value.priority,
+      status: form.value.status,
+      from: form.value.from,
       created: Date.now(),
     }
     this.ticketCreated.emit(ticket)
-  }
-
-  onAddTag() {
-    this.tagArrayInput.push(this.tagIndividualInput);
-  }
-
-  onRemoveTag(i:number) {
-    this.tagArrayInput.splice(i, 1)
   }
 }
