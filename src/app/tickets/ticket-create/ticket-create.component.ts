@@ -24,9 +24,10 @@ export class TicketCreateComponent {
       status: form.value.status,
       from: form.value.from,
       created: Date.now(),
-    }
-    this.ticketsService.addTicket(ticket)
+    };
+    this.ticketsService.addTicket(ticket);
+    form.resetForm();
   }
 
-  constructor(public ticketsService: TicketsService) {}
+  constructor(public ticketsService: TicketsService) {};
 }
