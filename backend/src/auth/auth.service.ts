@@ -16,6 +16,7 @@ export class AuthService {
       // Keeps everything except password.
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;
+      console.log(user);
       return result;
     }
     return null;
