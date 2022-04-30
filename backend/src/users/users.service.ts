@@ -4,6 +4,7 @@ import { User, UserDocument } from './schemas/user.schema';
 import { Model } from 'mongoose';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { registerErrors } from 'src/auth/constants';
+import { hashSync } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -25,6 +26,7 @@ export class UsersService {
     } else if (user.password !== user.passwordConfirm) {
       return registerErrors.BAD_PW_CONF;
     }
+    user.password = hashSync(user.password, 10);
     const newUser = new this.userModel({ ...user });
     const result = await newUser.save();
     return result.id;
