@@ -1,4 +1,4 @@
-<form (submit)="onAddTicket(postForm)" #postForm="ngForm">
+<form (submit)="onAddTicket(addTicketForm)" #addTicketForm="ngForm">
 
   Problème :
   <input
@@ -49,6 +49,8 @@
   </select>
   <br>
 
-  <button type="submit">Submit</button>
+  <button type="submit" [disabled]="!addTicketForm.form.valid">
+    Créer le ticket
+  </button>
 
 </form>

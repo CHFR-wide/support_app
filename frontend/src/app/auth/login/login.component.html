@@ -1,0 +1,13 @@
+<form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+  Nom d'utilisateur :
+  <input type="text" name="username" required ngModel>
+  <br>
+
+  Mot de passe :
+  <input type="password" name="password" required ngModel>
+  <br>
+
+  <button type="submit" [disabled]="!loginForm.form.valid">
+    Connexion
+  </button>
+</form>

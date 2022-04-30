@@ -13,7 +13,6 @@ export class TicketCreateComponent {
   tagArrayInput : string[] = [];
 
   onAddTicket(form: NgForm) {
-    if(form.invalid) return;
     const ticket: Ticket = {
       issue: form.value.issue,
       description: form.value.description,

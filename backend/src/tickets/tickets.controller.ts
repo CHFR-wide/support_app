@@ -29,7 +29,6 @@ export class TicketsController {
 
   @Post()
   async addTicket(@Body() createTicketDto: CreateTicketDto) {
-    console.log(createTicketDto);
     const generatedId = await this.ticketsService.create(createTicketDto);
     return { id: generatedId };
   }

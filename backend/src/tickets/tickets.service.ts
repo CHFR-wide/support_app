@@ -23,7 +23,6 @@ export class TicketsService {
 
   async create(ticket: CreateTicketDto): Promise<string> {
     const newTicket = new this.ticketModel({ ...ticket, created: Date.now() });
-    console.log(newTicket);
     const result = await newTicket.save();
     return result.id;
   }

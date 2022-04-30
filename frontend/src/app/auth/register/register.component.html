@@ -1,0 +1,17 @@
+<form (ngSubmit)="onRegister(registerForm)" #registerForm="ngForm">
+  Nom d'utilisateur :
+  <input type="text" name="username" required ngModel>
+  <br>
+
+  Mot de passe :
+  <input type="password" name="password" required ngModel>
+  <br>
+
+  Confirmer le mot de passe :
+  <input type="password" name="passwordConfirm" required ngModel>
+  <br>
+
+  <button type="submit" [disabled]="!registerForm.form.valid || doPasswordsMismatch(registerForm)">
+    Inscription
+  </button>
+</form>

@@ -14,6 +14,9 @@ import { AppComponent } from './app.component';
 import { TicketCreateComponent } from './tickets/ticket-create/ticket-create.component';
 import { HeaderComponent } from './header/header.component';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
+import { LoginComponent } from './auth/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
   { path: 'home', component: AppComponent },
@@ -27,9 +30,12 @@ const routes: Routes = [
     AppComponent,
     TicketCreateComponent,
     HeaderComponent,
-    TicketListComponent
+    TicketListComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),

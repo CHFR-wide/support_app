@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 import {Ticket} from './tickets/ticket.model'
 
@@ -8,6 +9,8 @@ import {Ticket} from './tickets/ticket.model'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(public authService: AuthService) {}
+
   title = 'support-app';
 
   storedTickets: Ticket[] = []
