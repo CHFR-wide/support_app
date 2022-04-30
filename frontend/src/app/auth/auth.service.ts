@@ -6,11 +6,16 @@ import { HttpLoginResponse } from './login/login.model';
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private loginUrl = `${environment.apiUrl}auth/login`
+  private registerUrl = `${environment.apiUrl}auth/register`
 
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
     return this.http.post<HttpLoginResponse>(this.loginUrl, { username, password });
+  }
+
+  register(username: string, password: string, passwordConfirm: string) {
+    return this.http.post<HttpLoginResponse>(this.registerUrl, { username, password, passwordConfirm });
   }
 
   logout(){

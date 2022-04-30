@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { HttpLoginResponse } from '../login/login.model';
 
 @Component({
   selector: 'app-register',
@@ -10,13 +11,27 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent {
 
+  registerFailedMsg: string = '';
+
   constructor(
     public authService: AuthService,
     private router:Router,
     ) {}
 
   onRegister(form: NgForm){
-
+    const vals = form.value;
+    this.authService.register(vals.username, vals.password, vals.passwordConfirm)
+      .subscribe(
+        {
+          next: (x: HttpLoginResponse) => {
+            localStorage.setItem('id_token', x.access_token);
+            this.router.navigateByUrl('/');
+          },
+          error: (e) => {
+            this.registerFailedMsg = e.error.message;
+          },
+        }
+      )
   }
 
   doPasswordsMismatch(form: NgForm){

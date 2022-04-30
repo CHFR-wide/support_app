@@ -23,24 +23,28 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
-    console.log(req.user);
     return await this.authService.login(req.user);
   }
 
   @Post('register')
   async register(@Body() registerUserDto: RegisterUserDto) {
     const newUser = await this.usersService.create(registerUserDto);
-    if (newUser == registerErrors.USER_EXISTS) {
+    if (newUser == registerErrors.MISSING_FIELDS) {
       throw new HttpException(
-        'Cet utilisateur existe déjà',
+        "Formulaire d'inscription incomplet.",
+        HttpStatus.BAD_REQUEST,
+      );
+    } else if (newUser == registerErrors.USER_EXISTS) {
+      throw new HttpException(
+        "Nom d'utilisateur pris.",
         HttpStatus.BAD_REQUEST,
       );
     } else if (newUser == registerErrors.BAD_PW_CONF) {
       throw new HttpException(
-        'Confirmation du mot de passe invalide',
+        'Confirmation du mot de passe invalide.',
         HttpStatus.BAD_REQUEST,
       );
     }
-    return newUser;
+    return await this.authService.login(newUser);
   }
 }

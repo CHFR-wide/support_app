@@ -14,4 +14,5 @@
   <button type="submit" [disabled]="!registerForm.form.valid || doPasswordsMismatch(registerForm)">
     Inscription
   </button>
+  <p *ngIf="registerFailedMsg">{{ registerFailedMsg }}</p>
 </form>

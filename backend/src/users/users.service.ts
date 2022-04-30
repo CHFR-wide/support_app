@@ -20,6 +20,9 @@ export class UsersService {
   }
 
   async create(user: RegisterUserDto): Promise<any> {
+    if (!user.password || !user.passwordConfirm || !user.username) {
+      return registerErrors.MISSING_FIELDS;
+    }
     const usr = await this.findOneByUsername(user.username);
     if (usr) {
       return registerErrors.USER_EXISTS;

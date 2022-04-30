@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
 import { AuthService } from '../auth.service'
 import { HttpLoginResponse } from './login.model';
 
@@ -11,6 +13,8 @@ import { HttpLoginResponse } from './login.model';
 })
 export class LoginComponent{
 
+  loginFailedMsg:string = ''
+
   constructor(
     public authService: AuthService,
     private router:Router,
@@ -20,16 +24,15 @@ export class LoginComponent{
     const vals = form.value;
     this.authService.login(vals.username, vals.password)
       .subscribe(
-        (x: HttpLoginResponse) => {
-          localStorage.setItem('id_token', x.access_token);
-          this.router.navigateByUrl('/');
+        {
+          next: (x: HttpLoginResponse) => {
+            localStorage.setItem('id_token', x.access_token);
+            this.router.navigateByUrl('/');
+          },
+          error: (e) => {
+            this.loginFailedMsg = "Login échoué.";
+          },
         }
       )
-  }
-
-  onLogOut(){
-    alert("logout");
-    this.authService.logout();
-    this.router.navigateByUrl('/');
   }
 }

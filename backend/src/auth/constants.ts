@@ -5,4 +5,5 @@ export const jwtConstants = {
 export const registerErrors = {
   BAD_PW_CONF: -1,
   USER_EXISTS: -2,
+  MISSING_FIELDS: -3,
 };

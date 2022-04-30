@@ -1,6 +1,12 @@
 <app-header></app-header>
 <main>
-  <app-ticket-create></app-ticket-create>
-  <app-ticket-list></app-ticket-list>
-  <app-login></app-login>
+  <ng-template [ngIf]="authService.isLoggedIn()">
+    <app-ticket-create></app-ticket-create>
+    <app-ticket-list></app-ticket-list>
+    <app-logout></app-logout>
+  </ng-template>
+  <ng-template [ngIf]="authService.isLoggedOut()">
+    <app-login></app-login>
+    <app-register></app-register>
+  </ng-template>
 </main>

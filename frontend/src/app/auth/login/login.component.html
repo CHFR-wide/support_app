@@ -10,4 +10,5 @@
   <button type="submit" [disabled]="!loginForm.form.valid">
     Connexion
   </button>
+  <p *ngIf="loginFailedMsg">{{ loginFailedMsg }}</p>
 </form>
