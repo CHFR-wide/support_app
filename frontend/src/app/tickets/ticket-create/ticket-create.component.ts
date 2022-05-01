@@ -19,6 +19,8 @@ export class TicketCreateComponent {
     ) {};
 
   onAddTicket(form: NgForm) {
+    let username = localStorage.getItem('username');
+    if (username === null) username = 'none';
     const ticket: TicketCreate = {
       issue: form.value.issue,
       description: form.value.description,
@@ -27,7 +29,7 @@ export class TicketCreateComponent {
       severity: form.value.severity,
       priority: form.value.priority,
       status: 'new',
-      from: 'chfr',
+      from: username,
     };
     this.ticketsService.addTicket(ticket).subscribe();
     this.ticketsService.sendUpdate();

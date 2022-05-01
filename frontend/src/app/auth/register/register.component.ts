@@ -24,8 +24,7 @@ export class RegisterComponent {
       .subscribe(
         {
           next: (x: HttpLoginResponse) => {
-            localStorage.setItem('id_token', x.access_token);
-            this.router.navigateByUrl('/');
+            this.authService.createsession(x.access_token);
           },
           error: (e) => {
             this.registerFailedMsg = e.error.message;

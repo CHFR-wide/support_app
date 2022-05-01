@@ -32,6 +32,6 @@ export class UsersService {
     user.password = hashSync(user.password, 10);
     const newUser = new this.userModel({ ...user });
     const result = await newUser.save();
-    return result.id;
+    return result;
   }
 }
