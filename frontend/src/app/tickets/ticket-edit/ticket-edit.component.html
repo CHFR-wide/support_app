@@ -31,6 +31,17 @@
   </select>
   <br>
 
+  <select formControlName="status">
+    <option value="nouveau">nouveau</option>
+    <option value="en cours">en cours</option>
+    <option value="prêt au test">prêt au test</option>
+    <option value="fermé">fermé</option>
+    <option value="détails nécessaires">détails nécessaires</option>
+    <option value="Rejeté">Rejeté</option>
+    <option value="reporté">reporté</option>
+  </select>
+  <br>
+
   <button type="submit" [disabled]="!editForm.valid">
     Enregistrer
   </button>

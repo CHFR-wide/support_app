@@ -32,7 +32,7 @@ export class TicketEditComponent implements OnInit{
       type:         [this.ticket.type, Validators.required],
       severity:     [this.ticket.severity, Validators.required],
       priority:     [this.ticket.priority, Validators.required],
-      status:       [this.ticket.status],
+      status:       [this.ticket.status, Validators.required],
     });
   }
 

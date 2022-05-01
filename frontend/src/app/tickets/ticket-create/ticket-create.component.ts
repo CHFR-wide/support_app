@@ -45,7 +45,7 @@ export class TicketCreateComponent implements OnInit {
       type: this.createForm.value.type,
       severity: this.createForm.value.severity,
       priority: this.createForm.value.priority,
-      status: 'new',
+      status: 'nouveau',
       from: username,
     };
     this.ticketsService.addTicket(ticket).subscribe();
