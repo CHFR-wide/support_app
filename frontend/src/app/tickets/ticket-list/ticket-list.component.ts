@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs'
+import { AuthService } from 'src/app/auth/auth.service';
 
 import { TicketGet } from '../ticket-get.model';
 import { TicketsService } from '../tickets.service';
@@ -14,7 +15,10 @@ export class TicketListComponent{
   sub: Subscription = new Subscription;
   editing: string[] = [];
 
-  constructor(public ticketsService: TicketsService) {}
+  constructor(
+    public ticketsService: TicketsService,
+    public authService: AuthService,
+    ) {}
 
   ngOnInit(): void {
     this.getTickets();

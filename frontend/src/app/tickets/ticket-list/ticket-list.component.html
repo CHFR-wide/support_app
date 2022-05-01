@@ -13,7 +13,10 @@
         <li>De : {{ ticket.from }}</li>
         <li>Créé le : {{ ticket.created | date : 'short' }}</li>
       </ul>
-      <button (click)="editTicket(ticket._id)">modifier</button>
+      <button *ngIf="ticket.from === authService.getUsername()"
+              (click)="editTicket(ticket._id)">
+        modifier
+      </button>
     </ng-template>
     <ng-template [ngIf]="isEdited(ticket._id)">
       <app-ticket-edit [ticket]="ticket" (editDone)="endEdit($event)"></app-ticket-edit>

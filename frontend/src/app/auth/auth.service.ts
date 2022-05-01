@@ -48,4 +48,8 @@ export class AuthService {
     return !this.isLoggedIn();
   }
 
+  getUsername(){
+    return localStorage.getItem('username');
+  }
+
 }
