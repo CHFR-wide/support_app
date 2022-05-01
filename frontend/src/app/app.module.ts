@@ -15,9 +15,10 @@ import { TicketCreateComponent } from './tickets/ticket-create/ticket-create.com
 import { HeaderComponent } from './header/header.component';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
 import { LoginComponent } from './auth/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './auth/register/register.component';
 import { LogoutComponent } from './auth/logout/logout.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 const routes: Routes = [
   { path: '', component: AppComponent },
@@ -44,7 +45,13 @@ const routes: Routes = [
     MatInputModule,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

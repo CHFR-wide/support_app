@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Ticket } from '../ticket.model';
+import { Router } from '@angular/router';
+import { TicketCreate } from '../ticket-create.model';
 import { TicketsService } from '../tickets.service';
 
 @Component({
@@ -12,21 +13,23 @@ export class TicketCreateComponent {
   tagIndividualInput = '';
   tagArrayInput : string[] = [];
 
+  constructor(
+    public ticketsService: TicketsService,
+    private router: Router,
+    ) {};
+
   onAddTicket(form: NgForm) {
-    const ticket: Ticket = {
+    const ticket: TicketCreate = {
       issue: form.value.issue,
       description: form.value.description,
       tags: form.value.tags.split(','),
       type: form.value.type,
       severity: form.value.severity,
       priority: form.value.priority,
-      status: form.value.status,
-      from: form.value.from,
-      created: Date.now(),
+      status: 'new',
+      from: 'chfr',
     };
-    this.ticketsService.addTicket(ticket);
+    this.ticketsService.addTicket(ticket).subscribe();
     form.resetForm();
   }
-
-  constructor(public ticketsService: TicketsService) {};
 }

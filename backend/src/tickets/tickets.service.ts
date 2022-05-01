@@ -21,10 +21,10 @@ export class TicketsService {
     return await this.ticketModel.findById(id).exec();
   }
 
-  async create(ticket: CreateTicketDto): Promise<string> {
+  async create(ticket: CreateTicketDto): Promise<Ticket> {
     const newTicket = new this.ticketModel({ ...ticket, created: Date.now() });
     const result = await newTicket.save();
-    return result.id;
+    return result;
   }
 
   async update(id: string, ticket: Partial<Ticket>) {

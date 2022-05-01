@@ -1,11 +1,10 @@
-export interface Ticket {
+export interface TicketCreate {
   issue: string;
   description: string;
-  tags: Array<string>;
+  tags: string[];
   type: string;
   severity: string;
   priority: string;
   status: string;
   from: string;
-  created: number;
 }

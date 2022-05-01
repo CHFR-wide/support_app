@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs'
 
-import { Ticket } from '../ticket.model';
+import { TicketGet } from '../ticket-get.model';
 import { TicketsService } from '../tickets.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { TicketsService } from '../tickets.service';
   templateUrl: './ticket-list.component.html',
   styleUrls: ['./ticket-list.component.css']
 })
-export class TicketListComponent implements OnInit, OnDestroy{
+export class TicketListComponent{
   // tickets: Ticket[] = [{
   //     issue: "Questions sur les tickets",
   //     description: "Comment ça fonctionne? Je suis intrigué",
@@ -21,18 +21,26 @@ export class TicketListComponent implements OnInit, OnDestroy{
   //     from: "chfr",
   //     created: "29/04/2022",
   // }]
-  tickets: Ticket[] = []
+  tickets: TicketGet[] = []
   private sub: Subscription = new Subscription;
 
-  ngOnInit(): void {
-    // this.tickets = this.ticketsService.getTickets();
-    this.sub = this.ticketsService.getTicketListener()
-      .subscribe((tickets) => { this.tickets = tickets });
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe()
-  }
-
   constructor(public ticketsService: TicketsService) {}
+
+  ngOnInit(): void {
+    this.getTickets();
+    // this.sub = this.ticketsService.getTicketListener()
+    //   .subscribe((tickets) => { this.tickets = tickets });
+  }
+
+  // ngOnDestroy(): void {
+  //   this.sub.unsubscribe()
+  // }
+
+  getTickets() {
+    this.ticketsService.getTickets().subscribe(
+      (found: TicketGet[]) => {this.tickets = found}
+    )
+  }
+
+
 }

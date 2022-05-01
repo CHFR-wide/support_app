@@ -9,7 +9,7 @@
       <li>Priorité : {{ ticket.priority }}</li>
       <li>Status : {{ ticket.status }}</li>
       <li>De : {{ ticket.from }}</li>
-      <li>Créé le : {{ ticket.created }}</li>
+      <li>Créé le : {{ ticket.created | date : 'short' }}</li>
     </ul>
   </li>
 </ul>
