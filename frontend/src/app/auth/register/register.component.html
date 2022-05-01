@@ -11,6 +11,10 @@
   <input type="password" formControlName="passwordConfirm">
   <br>
 
+  Modérateur :
+  <input type="checkbox" formControlName="isModerator">
+  <br>
+
   <button type="submit" [disabled]="!registerForm.valid || doPasswordsMismatch()">
     Inscription
   </button>

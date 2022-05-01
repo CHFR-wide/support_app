@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
 import { AuthService } from '../auth.service'
-import { HttpLoginResponse } from './login.model';
+import { TokenResponse } from '../token-response.model';
+import { UserLoginModel } from './login.model';
 
 @Component({
   selector: 'app-login',
@@ -31,11 +30,10 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit(){
-    const vals = this.loginForm.value;
-    this.authService.login(vals.username, vals.password)
+    this.authService.login(this.loginForm.value)
       .subscribe(
         {
-          next: (x: HttpLoginResponse) => {
+          next: (x: TokenResponse) => {
             this.authService.createsession(x.access_token);
           },
           error: (e) => {

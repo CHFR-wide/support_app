@@ -5,7 +5,7 @@
     <app-ticket-list></app-ticket-list>
     <app-logout></app-logout>
   </ng-template>
-  <ng-template [ngIf]="authService.isLoggedOut()">
+  <ng-template [ngIf]="!authService.isLoggedIn()">
     <app-login></app-login>
     <app-register></app-register>
   </ng-template>

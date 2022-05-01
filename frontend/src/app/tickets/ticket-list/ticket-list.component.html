@@ -13,7 +13,7 @@
         <li>De : {{ ticket.from }}</li>
         <li>Créé le : {{ ticket.created | date : 'short' }}</li>
       </ul>
-      <button *ngIf="ticket.from === authService.getUsername()"
+      <button *ngIf="ticket.from === authService.getUsername() || authService.isUserModerator()"
               (click)="editTicket(ticket._id)">
         modifier
       </button>

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { TicketGet } from '../ticket-get.model';
 import { TicketsService } from '../tickets.service';
 
@@ -20,7 +21,7 @@ export class TicketEditComponent implements OnInit{
 
   constructor(
     public ticketsService: TicketsService,
-    private router: Router,
+    public authService: AuthService,
     private formBuilder: FormBuilder,
   ) {};
 

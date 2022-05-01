@@ -10,6 +10,9 @@ export class User {
 
   @Prop()
   public password!: string;
+
+  @Prop()
+  public isModerator!: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { HttpLoginResponse } from '../login/login.model';
+import { UserLoginModel } from '../login/login.model';
+import { TokenResponse } from '../token-response.model';
 
 @Component({
   selector: 'app-register',
@@ -26,15 +27,15 @@ export class RegisterComponent implements OnInit{
       username: ['', Validators.required],
       password: ['', Validators.required],
       passwordConfirm: ['', Validators.required],
+      isModerator: [false],
     })
   }
 
   onSubmit(){
-    const vals = this.registerForm.value;
-    this.authService.register(vals.username, vals.password, vals.passwordConfirm)
+    this.authService.register(this.registerForm.value)
       .subscribe(
         {
-          next: (x: HttpLoginResponse) => {
+          next: (x: TokenResponse) => {
             this.authService.createsession(x.access_token);
           },
           error: (e) => {

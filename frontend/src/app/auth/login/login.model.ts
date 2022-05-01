@@ -1,4 +1,4 @@
-export interface HttpLoginResponse{
-  status: string;
-  access_token: string;
+export interface UserLoginModel{
+  username: string;
+  password: string;
 }

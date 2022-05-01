@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { HttpLoginResponse } from './login/login.model';
+import { UserLoginModel } from './login/login.model';
 import { Router } from '@angular/router';
+import { userRegisterModel } from './register/register.model';
+import { TokenResponse } from './token-response.model';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -14,12 +16,13 @@ export class AuthService {
     private router: Router
     ) { }
 
-  login(username: string, password: string) {
-    return this.http.post<HttpLoginResponse>(this.loginUrl, { username, password });
+  login(UserLoginModel: UserLoginModel) {
+    return this.http.post<TokenResponse>(this.loginUrl, UserLoginModel);
   }
 
-  register(username: string, password: string, passwordConfirm: string) {
-    return this.http.post<HttpLoginResponse>(this.registerUrl, { username, password, passwordConfirm });
+  register(userRegisterModel: userRegisterModel) {
+    console.log(userRegisterModel);
+    return this.http.post<TokenResponse>(this.registerUrl, userRegisterModel);
   }
 
   logout(){
@@ -42,12 +45,11 @@ export class AuthService {
     this.router.navigateByUrl('/');
   }
 
-  isLoggedOut(){
-    return !this.isLoggedIn();
-  }
-
   getUsername(){
     return this.decodeToken(localStorage.getItem('id_token')!).username;
   }
 
+  isUserModerator(){
+    return this.decodeToken(localStorage.getItem('id_token')!).isModerator;
+  }
 }
