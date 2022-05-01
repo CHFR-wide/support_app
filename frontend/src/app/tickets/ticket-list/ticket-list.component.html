@@ -1,18 +1,24 @@
 <ul *ngIf="tickets.length > 0">
   <li *ngFor="let ticket of tickets">
-    <ul>
-      <li>id : {{ ticket._id }}</li>
-      <li>Problème : {{ ticket.issue }}</li>
-      <li>Description : {{ ticket.description }}</li>
-      <li>Tags : {{ ticket.tags.join(", ") }}</li>
-      <li>Type : {{ ticket.type }}</li>
-      <li>Sévérité : {{ ticket.severity }}</li>
-      <li>Priorité : {{ ticket.priority }}</li>
-      <li>Status : {{ ticket.status }}</li>
-      <li>De : {{ ticket.from }}</li>
-      <li>Créé le : {{ ticket.created | date : 'short' }}</li>
-    </ul>
-    <app-ticket-edit [ticket]="ticket"></app-ticket-edit>
+    <ng-template [ngIf]="!isEdited(ticket._id)">
+      <ul>
+        <li>id : {{ ticket._id }}</li>
+        <li>Problème : {{ ticket.issue }}</li>
+        <li>Description : {{ ticket.description }}</li>
+        <li>Tags : {{ ticket.tags.join(", ") }}</li>
+        <li>Type : {{ ticket.type }}</li>
+        <li>Sévérité : {{ ticket.severity }}</li>
+        <li>Priorité : {{ ticket.priority }}</li>
+        <li>Status : {{ ticket.status }}</li>
+        <li>De : {{ ticket.from }}</li>
+        <li>Créé le : {{ ticket.created | date : 'short' }}</li>
+      </ul>
+      <button (click)="editTicket(ticket._id)">modifier</button>
+    </ng-template>
+    <ng-template [ngIf]="isEdited(ticket._id)">
+      <app-ticket-edit [ticket]="ticket" (editDone)="endEdit($event)"></app-ticket-edit>
+      <button (click)="endEdit(ticket._id)">Annuler</button>
+    </ng-template>
   </li>
 </ul>
 <p *ngIf="tickets.length == 0">Rien à afficher</p>

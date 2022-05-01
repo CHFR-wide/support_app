@@ -8,7 +8,7 @@ import { TicketGet } from './ticket-get.model';
 @Injectable({providedIn: 'root'})
 export class TicketsService {
   private ticketsUrl = environment.apiUrl + "tickets";
-  private subject = new Subject<void>();
+  private ticketListUpdate = new Subject<void>();
 
   constructor(private http: HttpClient) { }
 
@@ -26,10 +26,10 @@ export class TicketsService {
   }
 
   sendListUpdate(){
-    this.subject.next();
+    this.ticketListUpdate.next();
   }
 
   getListUpdate(){
-    return this.subject.asObservable();
+    return this.ticketListUpdate.asObservable();
   }
 }

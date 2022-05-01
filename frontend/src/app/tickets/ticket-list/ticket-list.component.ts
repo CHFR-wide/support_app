@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs'
 
 import { TicketGet } from '../ticket-get.model';
@@ -11,7 +11,8 @@ import { TicketsService } from '../tickets.service';
 })
 export class TicketListComponent{
   tickets: TicketGet[] = []
-  private sub: Subscription = new Subscription;
+  sub: Subscription = new Subscription;
+  editing: string[] = [];
 
   constructor(public ticketsService: TicketsService) {}
 
@@ -19,14 +20,24 @@ export class TicketListComponent{
     this.getTickets();
     this.sub = this.ticketsService.getListUpdate().subscribe(
       () => {this.getTickets()}
-    )
+    );
   }
 
   getTickets() {
     this.ticketsService.getTickets().subscribe(
       (found: TicketGet[]) => {this.tickets = found}
-    )
+    );
   }
 
+  editTicket(id: string){
+    this.editing.push(id);
+  }
 
+  isEdited(id: string){
+    return this.editing.findIndex((e) => e === id) !== -1;
+  }
+
+  endEdit(id: string){
+    this.editing = this.editing.filter((e) => e!== id);
+  }
 }
