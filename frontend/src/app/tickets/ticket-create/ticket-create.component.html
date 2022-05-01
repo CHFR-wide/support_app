@@ -1,37 +1,52 @@
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-  <input placeholder="Problème" formControlName="issue" >
-  <br>
+  <mat-form-field>
+    <mat-label>Problème</mat-label>
+    <input matInput type="text" formControlName="issue">
+  </mat-form-field>
 
-  <textarea rows="6" formControlName="description"></textarea>
-  <br>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput rows="6" formControlName="description"></textarea>
+  </mat-form-field>
 
-  <input type="text" formControlName="tags">
-  <br>
+  <mat-form-field>
+    <mat-label>Tags</mat-label>
+    <input matInput type="text" formControlName="tags">
+  </mat-form-field>
 
-  <select formControlName="type" >
-    <option value="bug">bug</option>
-    <option value="question">question</option>
-    <option value="amélioration">amélioration</option>
-  </select>
-  <br>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="bug">bug</mat-option>
+      <mat-option value="question">question</mat-option>
+      <mat-option value="amélioration">amélioration</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <select formControlName="severity">
-    <option value="souhait">souhait</option>
-    <option value="mineur">mineur</option>
-    <option value="normal">normal</option>
-    <option value="important">important</option>
-    <option value="critique">critique</option>
-  </select>
-  <br>
+  <mat-form-field>
+    <mat-label>Sévérité</mat-label>
+    <mat-select formControlName="severity" >
+      <mat-option value="souhait">souhait</mat-option>
+      <mat-option value="mineur">mineur</mat-option>
+      <mat-option value="normal">normal</mat-option>
+      <mat-option value="important">important</mat-option>
+      <mat-option value="critique">critique</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <select formControlName="priority">
-    <option value="légère">légère</option>
-    <option value="normale">normale</option>
-    <option value="haute">haute</option>
-  </select>
-  <br>
+  <mat-form-field>
+    <mat-label>Priorité</mat-label>
+    <mat-select formControlName="priority">
+      <mat-option value="légère">légère</mat-option>
+      <mat-option value="normale">normale</mat-option>
+      <mat-option value="haute">haute</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <button type="submit" [disabled]="!createForm.valid">
+  <button mat-raised-button
+  color="primary"
+  type="submit"
+  [disabled]="!createForm.valid">
     Créer le ticket
   </button>
 </form>

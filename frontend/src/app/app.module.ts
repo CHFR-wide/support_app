@@ -20,6 +20,10 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 const routes: Routes = [
   { path: '', component: AppComponent },
@@ -44,8 +48,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     MatButtonModule,
     MatCardModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatOptionModule,
     MatInputModule,
-    MatToolbarModule
   ],
   providers: [
     {

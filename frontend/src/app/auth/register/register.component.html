@@ -1,22 +1,29 @@
+<h2>S'inscrire</h2>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  Nom d'utilisateur :
-  <input type="text" formControlName="username">
-  <br>
+  <mat-form-field>
+    <mat-label>Nom d'utilisateur</mat-label>
+    <input matInput type="text" formControlName="username">
+  </mat-form-field>
 
-  Mot de passe :
-  <input type="password" formControlName="password">
-  <br>
+  <mat-form-field>
+    <mat-label>Mot de passe</mat-label>
+    <input matInput type="password" formControlName="password">
+  </mat-form-field>
 
-  Confirmer le mot de passe :
-  <input type="password" formControlName="passwordConfirm">
-  <br>
+  <mat-form-field>
+    <mat-label>Confirmer le mot de passe</mat-label>
+    <input matInput type="password" formControlName="passwordConfirm">
+  </mat-form-field>
 
-  Modérateur :
-  <input type="checkbox" formControlName="isModerator">
-  <br>
+  <span>
+    <mat-checkbox formControlName="isModerator">Modérateur</mat-checkbox>
+  </span>
 
-  <button type="submit" [disabled]="!registerForm.valid || doPasswordsMismatch()">
-    Inscription
+  <button mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!registerForm.valid">
+    Connexion
   </button>
   <p *ngIf="registerFailedMsg">{{ registerFailedMsg }}</p>
 </form>
