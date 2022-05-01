@@ -30,6 +30,6 @@ export class TicketCreateComponent {
       from: 'chfr',
     };
     this.ticketsService.addTicket(ticket).subscribe();
-    form.resetForm();
+    this.ticketsService.sendUpdate();
   }
 }

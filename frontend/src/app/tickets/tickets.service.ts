@@ -7,15 +7,10 @@ import { TicketGet } from './ticket-get.model';
 
 @Injectable({providedIn: 'root'})
 export class TicketsService {
-  private tickets: TicketGet[] = [];
   private ticketsUrl = environment.apiUrl + "tickets";
-  private ticketsUpdated = new Subject<number>();
+  private subject = new Subject<void>();
 
   constructor(private http: HttpClient) { }
-
-  // getTickets() {
-  //   return [...this.tickets]; // Array deepcopy
-  // }
 
   getTickets() {
     return this.http.get<TicketGet[]>(this.ticketsUrl);
@@ -25,12 +20,11 @@ export class TicketsService {
     return this.http.post(this.ticketsUrl, ticket);
   }
 
-  getTicketListener() {
-    return this.ticketsUpdated.asObservable();
+  sendUpdate(){
+    this.subject.next();
   }
 
-  // addTicket(ticket: Ticket) {
-  //   this.tickets.push(ticket)
-  //   this.ticketsUpdated.next([...this.tickets])
-  // }
+  getUpdate(){
+    return this.subject.asObservable();
+  }
 }
