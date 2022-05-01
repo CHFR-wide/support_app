@@ -1,17 +1,17 @@
-<form (ngSubmit)="onRegister(registerForm)" #registerForm="ngForm">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   Nom d'utilisateur :
-  <input type="text" name="username" required ngModel>
+  <input type="text" formControlName="username">
   <br>
 
   Mot de passe :
-  <input type="password" name="password" required ngModel>
+  <input type="password" formControlName="password">
   <br>
 
   Confirmer le mot de passe :
-  <input type="password" name="passwordConfirm" required ngModel>
+  <input type="password" formControlName="passwordConfirm">
   <br>
 
-  <button type="submit" [disabled]="!registerForm.form.valid || doPasswordsMismatch(registerForm)">
+  <button type="submit" [disabled]="!registerForm.valid || doPasswordsMismatch()">
     Inscription
   </button>
   <p *ngIf="registerFailedMsg">{{ registerFailedMsg }}</p>

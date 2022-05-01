@@ -1,13 +1,13 @@
-<form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   Nom d'utilisateur :
-  <input type="text" name="username" required ngModel>
+  <input type="text" formControlName="username">
   <br>
 
   Mot de passe :
-  <input type="password" name="password" required ngModel>
+  <input type="password" formControlName="password">
   <br>
 
-  <button type="submit" [disabled]="!loginForm.form.valid">
+  <button type="submit" [disabled]="!loginForm.valid">
     Connexion
   </button>
   <p *ngIf="loginFailedMsg">{{ loginFailedMsg }}</p>

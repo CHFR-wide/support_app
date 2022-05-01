@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpLoginResponse } from '../login/login.model';
@@ -9,17 +9,28 @@ import { HttpLoginResponse } from '../login/login.model';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
 
   registerFailedMsg: string = '';
+
+  registerForm!: FormGroup;
 
   constructor(
     public authService: AuthService,
     private router:Router,
-    ) {}
+    private formBuilder: FormBuilder,
+  ) {}
 
-  onRegister(form: NgForm){
-    const vals = form.value;
+  ngOnInit(): void {
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required],
+    })
+  }
+
+  onSubmit(){
+    const vals = this.registerForm.value;
     this.authService.register(vals.username, vals.password, vals.passwordConfirm)
       .subscribe(
         {
@@ -33,8 +44,8 @@ export class RegisterComponent {
       )
   }
 
-  doPasswordsMismatch(form: NgForm){
-    const vals = form.value;
+  doPasswordsMismatch(){
+    const vals = this.registerForm.value;
     const pw = vals.password;
     const pwc = vals.passwordConfirm;
     return pw !== pwc;

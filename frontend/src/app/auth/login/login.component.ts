@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { AuthService } from '../auth.service'
@@ -11,17 +11,27 @@ import { HttpLoginResponse } from './login.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent{
+export class LoginComponent implements OnInit{
 
   loginFailedMsg:string = ''
 
+  loginForm!: FormGroup;
+
   constructor(
     public authService: AuthService,
+    private formBuilder: FormBuilder,
     private router:Router,
-    ) {}
+  ) {};
 
-  onLogin(form: NgForm){
-    const vals = form.value;
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    })
+  }
+
+  onSubmit(){
+    const vals = this.loginForm.value;
     this.authService.login(vals.username, vals.password)
       .subscribe(
         {
