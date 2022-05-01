@@ -1,5 +1,5 @@
-<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-  <input placeholder="Problème" formControlName="issue" >
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <input placeholder="Problème" formControlName="issue">
   <br>
 
   <textarea rows="6" formControlName="description"></textarea>
@@ -31,8 +31,7 @@
   </select>
   <br>
 
-  <button type="submit" [disabled]="!createForm.valid">
-    Créer le ticket
+  <button type="submit" [disabled]="!editForm.valid">
+    Enregistrer
   </button>
-  <p>Values: {{ createForm.value.issue }}</p>
 </form>

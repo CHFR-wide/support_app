@@ -1,6 +1,7 @@
 <ul *ngIf="tickets.length > 0">
   <li *ngFor="let ticket of tickets">
     <ul>
+      <li>id : {{ ticket._id }}</li>
       <li>Problème : {{ ticket.issue }}</li>
       <li>Description : {{ ticket.description }}</li>
       <li>Tags : {{ ticket.tags.join(", ") }}</li>
@@ -11,6 +12,8 @@
       <li>De : {{ ticket.from }}</li>
       <li>Créé le : {{ ticket.created | date : 'short' }}</li>
     </ul>
+    <app-ticket-edit [ticket]="ticket"></app-ticket-edit>
   </li>
 </ul>
 <p *ngIf="tickets.length == 0">Rien à afficher</p>
+

@@ -17,7 +17,7 @@ export class TicketListComponent{
 
   ngOnInit(): void {
     this.getTickets();
-    this.sub = this.ticketsService.getUpdate().subscribe(
+    this.sub = this.ticketsService.getListUpdate().subscribe(
       () => {this.getTickets()}
     )
   }

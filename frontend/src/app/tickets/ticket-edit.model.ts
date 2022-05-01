@@ -1,4 +1,4 @@
-export class updateTicketDto {
+export interface TicketEdit {
   issue: string;
   description: string;
   tags: string[];
@@ -6,5 +6,4 @@ export class updateTicketDto {
   severity: string;
   priority: string;
   status: string;
-  from: string;
 }

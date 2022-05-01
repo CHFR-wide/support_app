@@ -20,11 +20,16 @@ export class TicketsService {
     return this.http.post(this.ticketsUrl, ticket);
   }
 
-  sendUpdate(){
+  editTicket(ticket: TicketCreate, id: string) {
+    const url: string = this.ticketsUrl + '/' + id
+    return this.http.put(url, ticket);
+  }
+
+  sendListUpdate(){
     this.subject.next();
   }
 
-  getUpdate(){
+  getListUpdate(){
     return this.subject.asObservable();
   }
 }

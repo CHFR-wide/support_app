@@ -1,4 +1,5 @@
 export interface TicketGet {
+  _id: string;
   issue: string;
   description: string;
   tags: string[];
