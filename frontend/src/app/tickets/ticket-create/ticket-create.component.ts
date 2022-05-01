@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { TicketCreate } from '../ticket-create.model';
 import { TicketsService } from '../tickets.service';
 
@@ -19,6 +20,7 @@ export class TicketCreateComponent implements OnInit {
     public ticketsService: TicketsService,
     private router: Router,
     private formBuilder: FormBuilder,
+    private authService: AuthService,
   ) {};
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class TicketCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    let username = localStorage.getItem('username');
+    let username = this.authService.getUsername();
     if (username === null) username = 'none';
     const ticket: TicketCreate = {
       issue: this.createForm.value.issue,

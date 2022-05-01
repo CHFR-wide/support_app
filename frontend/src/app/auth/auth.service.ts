@@ -23,7 +23,6 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem('username');
     localStorage.removeItem('id_token');
   }
 
@@ -40,7 +39,6 @@ export class AuthService {
 
   public createsession(token: string){
     localStorage.setItem('id_token', token);
-    localStorage.setItem('username', this.decodeToken(token).username);
     this.router.navigateByUrl('/');
   }
 
@@ -49,7 +47,7 @@ export class AuthService {
   }
 
   getUsername(){
-    return localStorage.getItem('username');
+    return this.decodeToken(localStorage.getItem('id_token')!).username;
   }
 
 }
