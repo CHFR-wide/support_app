@@ -21,7 +21,6 @@ export class AuthService {
   }
 
   register(userRegisterModel: userRegisterModel) {
-    console.log(userRegisterModel);
     return this.http.post<TokenResponse>(this.registerUrl, userRegisterModel);
   }
 

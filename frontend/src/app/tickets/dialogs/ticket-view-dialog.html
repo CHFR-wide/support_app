@@ -13,5 +13,5 @@ le {{ data.created | date : 'short' }}
     <mat-chip *ngFor="let tag of data.tags">{{ tag }}</mat-chip>
   </mat-chip-list>
 </div>
-<p><b>Description : </b>{{ data.description }}</p>
+<p class="ticket-view-description"><b>Description : </b>{{ data.description }}</p>
 <button mat-raised-button color="primary" (click)="onNoClick()">Fermer</button>

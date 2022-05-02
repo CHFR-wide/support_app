@@ -41,7 +41,6 @@ export class TicketListComponent implements AfterViewInit{
     this.ticketsService.getTickets().subscribe(
       (found: TicketGet[]) => {
         this.dataSource.data = found;
-        console.dir(this.dataSource.data)
       }
     );
   }

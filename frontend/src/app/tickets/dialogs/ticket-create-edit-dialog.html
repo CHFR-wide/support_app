@@ -15,7 +15,18 @@
 
   <mat-form-field>
     <mat-label>Tags</mat-label>
-    <input matInput type="text" formControlName="tags">
+    <mat-chip-list #chipList aria-label="tags">
+      <mat-chip *ngFor="let tag of data.tags" (removed)="remove(tag)">
+        {{ tag }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input  [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
   </mat-form-field>
 
   <mat-form-field>

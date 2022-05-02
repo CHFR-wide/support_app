@@ -16,3 +16,7 @@ h2 {
   margin: 0.5rem;
   margin-left: 0;
 }
+
+.ticket-view-description {
+  overflow-wrap: break-word;
+}
