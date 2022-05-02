@@ -7,6 +7,7 @@ import { TicketCreate } from "../ticket-create.model";
 @Component({
   selector: 'ticket-create-edit-dialog',
   templateUrl: './ticket-create-edit-dialog.html',
+  styleUrls: ['./ticket-create-edit-dialog.component.css'],
 })
 export class TicketDialogComponent {
   constructor(

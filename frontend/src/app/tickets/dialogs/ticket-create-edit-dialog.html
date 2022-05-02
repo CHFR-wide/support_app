@@ -1,4 +1,6 @@
-<h2>{{ data.issue ? 'Modifier' : 'Créer' }} un ticket</h2>
+<div mat-dialog-title>
+  <h2>{{ data.issue ? 'Modifier' : 'Créer' }} un ticket</h2>
+</div>
 
 <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
@@ -29,9 +31,9 @@
     <mat-label>Sévérité</mat-label>
     <mat-select formControlName="severity" >
       <mat-option value="souhait">souhait</mat-option>
-      <mat-option value="mineur">mineur</mat-option>
-      <mat-option value="normal">normal</mat-option>
-      <mat-option value="important">important</mat-option>
+      <mat-option value="mineure">mineure</mat-option>
+      <mat-option value="normale">normale</mat-option>
+      <mat-option value="importante">importante</mat-option>
       <mat-option value="critique">critique</mat-option>
     </mat-select>
   </mat-form-field>

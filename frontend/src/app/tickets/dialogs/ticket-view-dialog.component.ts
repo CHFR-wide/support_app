@@ -5,7 +5,7 @@ import { TicketGet } from "../ticket-get.model";
 @Component({
   selector: 'ticket-view-dialog',
   templateUrl: './ticket-view-dialog.html',
-  styleUrls: ['../ticket-view/ticket-view.component.css']
+  styleUrls: ['./ticket-view-dialog.component.css']
 })
 export class TicketViewDialogComponent {
   constructor(
