@@ -1,5 +1,22 @@
 # Ticketing app
 
+- [Ticketing app](#ticketing-app)
+  - [Introduction](#introduction)
+  - [Technologies used](#technologies-used)
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Installation details](#installation-details)
+    - [Execution](#execution)
+  - [API](#api)
+    - [Data transfer object](#data-transfer-object)
+  - [Frontend](#frontend)
+  - [My learning journey](#my-learning-journey)
+    - [Day 1](#day-1)
+    - [Day 2](#day-2)
+    - [Day 3](#day-3)
+    - [Day 4 & 5](#day-4--5)
+  - [Conclusion](#conclusion)
+
 ## Introduction
 
 This repository contains a full stack application whose purpose it to handle basic ticketing, emulating the functionalities of [Taiga's ticketing feature](https://www.taiga.io/).
