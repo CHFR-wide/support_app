@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { TicketDialogComponent } from '../dialogs/ticket-create-edit-dialog.component';
 import { TicketGet } from '../ticket-get.model';
 import { TicketsService } from '../tickets.service';
 
@@ -10,7 +12,7 @@ import { TicketsService } from '../tickets.service';
   templateUrl: './ticket-edit.component.html',
   styleUrls: ['./ticket-edit.component.css']
 })
-export class TicketEditComponent implements OnInit{
+export class TicketEditComponent{
   @Input()
   ticket!: TicketGet;
   editForm!: FormGroup;
@@ -22,24 +24,20 @@ export class TicketEditComponent implements OnInit{
   constructor(
     public ticketsService: TicketsService,
     public authService: AuthService,
-    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
   ) {};
 
-  ngOnInit(): void {
-    this.editForm = this.formBuilder.group({
-      issue:        [this.ticket.issue, Validators.required],
-      description:  [this.ticket.description, Validators.required],
-      tags:         [this.ticket.tags],
-      type:         [this.ticket.type, Validators.required],
-      severity:     [this.ticket.severity, Validators.required],
-      priority:     [this.ticket.priority, Validators.required],
-      status:       [this.ticket.status, Validators.required],
+  openDialog(): void {
+    const dialogRef = this.dialog.open(TicketDialogComponent, {
+      width: '600px',
+      data: { ticket: this.ticket },
     });
-  }
 
-  onSubmit() {
-    this.ticketsService.editTicket(this.editForm.value, this.ticket._id).subscribe();
-    this.ticketsService.sendListUpdate();
-    this.editDone.emit(this.ticket._id);
+    dialogRef.afterClosed().subscribe(ticket => {
+      if (!ticket) return;
+      this.ticketsService.editTicket(ticket, this.ticket._id).subscribe();
+      this.ticketsService.sendListUpdate();
+      this.editDone.emit(this.ticket._id);
+    });
   }
 }

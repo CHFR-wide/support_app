@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component} from '@angular/core';
+import { MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
+import { TicketDialogComponent } from '../dialogs/ticket-create-edit-dialog.component';
 import { TicketCreate } from '../ticket-create.model';
 import { TicketsService } from '../tickets.service';
 
@@ -12,10 +11,16 @@ import { TicketsService } from '../tickets.service';
   styleUrls: ['./ticket-create.component.css']
 })
 export class TicketCreateComponent {
-  tagIndividualInput = '';
-  tagArrayInput : string[] = [];
-
-  createForm!: FormGroup;
+  blankTicket: TicketCreate = {
+    issue: '',
+    description: '',
+    tags: [],
+    type: '',
+    severity: '',
+    priority: '',
+    status: 'nouveau',
+    from: ''
+  }
 
   constructor(
     public ticketsService: TicketsService,
@@ -26,58 +31,14 @@ export class TicketCreateComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(TicketDialogComponent, {
       width: '600px',
+      data: { ticket: this.blankTicket },
     });
 
     dialogRef.afterClosed().subscribe(ticket => {
+      if (!ticket) return;
       this.ticketsService.addTicket(ticket).subscribe();
       this.ticketsService.sendListUpdate();
       this.router.navigateByUrl('/');
     });
-  }
-}
-
-@Component({
-  selector: 'dialog-ticket-create',
-  templateUrl: './ticket-create-dialog.html',
-})
-export class TicketDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<TicketDialogComponent>,
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-  ) {}
-
-  createForm!: FormGroup;
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  ngOnInit(): void {
-    this.createForm = this.formBuilder.group({
-      issue:        ['', Validators.required],
-      description:  ['', Validators.required],
-      tags:         [''],
-      type:         ['', Validators.required],
-      severity:     ['', Validators.required],
-      priority:     ['', Validators.required],
-      status:       [''],
-    })
-  }
-
-  onSubmit() {
-    let username = this.authService.getUsername();
-    if (username === null) username = 'none';
-    const ticket: TicketCreate = {
-      issue: this.createForm.value.issue,
-      description: this.createForm.value.description,
-      tags: this.createForm.value.tags.split(','),
-      type: this.createForm.value.type,
-      severity: this.createForm.value.severity,
-      priority: this.createForm.value.priority,
-      status: 'nouveau',
-      from: username,
-    };
-    this.dialogRef.close(ticket)
   }
 }

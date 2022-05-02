@@ -12,14 +12,7 @@
         <li>De : {{ ticket.from }}</li>
         <li>Créé le : {{ ticket.created | date : 'short' }}</li>
       </ul>
-      <button *ngIf="ticket.from === authService.getUsername() || authService.isUserModerator()"
-              (click)="editTicket(ticket._id)">
-        modifier
-      </button>
-    </ng-template>
-    <ng-template [ngIf]="isEdited(ticket._id)">
-      <app-ticket-edit [ticket]="ticket" (editDone)="endEdit($event)"></app-ticket-edit>
-      <button (click)="endEdit(ticket._id)">Annuler</button>
+      <app-ticket-edit *ngIf="ticket.from === authService.getUsername() || authService.isUserModerator()" [ticket]="ticket" (editDone)="endEdit($event)"></app-ticket-edit>
     </ng-template>
   </li>
 </ul>

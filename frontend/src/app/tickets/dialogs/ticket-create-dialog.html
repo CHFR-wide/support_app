@@ -1,6 +1,6 @@
 <h2>Créer un ticket</h2>
 
-<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <mat-label>Problème</mat-label>
     <input matInput type="text" formControlName="issue">
@@ -45,11 +45,26 @@
     </mat-select>
   </mat-form-field>
 
+  <ng-template [ngIf]="authService.isUserModerator()">
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="nouveau">nouveau</mat-option>
+        <mat-option value="en cours">en cours</mat-option>
+        <mat-option value="prêt au test">prêt au test</mat-option>
+        <mat-option value="fermé">fermé</mat-option>
+        <mat-option value="détails nécessaires">détails nécessaires</mat-option>
+        <mat-option value="Rejeté">Rejeté</mat-option>
+        <mat-option value="reporté">reporté</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
+
   <div mat-dialog-actions>
     <button mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="!createForm.valid">
+            [disabled]="!ticketForm.valid">
       Créer le ticket
     </button>
     <button mat-raised-button

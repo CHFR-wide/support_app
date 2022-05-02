@@ -11,7 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
-import { TicketCreateComponent, TicketDialogComponent } from './tickets/ticket-create/ticket-create.component';
+import { TicketCreateComponent } from './tickets/ticket-create/ticket-create.component';
+import { TicketDialogComponent } from './tickets/dialogs/ticket-create-edit-dialog.component';
 import { HeaderComponent } from './header/header.component';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
 import { LoginComponent } from './auth/login/login.component';
