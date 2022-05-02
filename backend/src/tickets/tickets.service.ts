@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Ticket, TicketDocument } from './schemas/ticket.schema';
 import { Model } from 'mongoose';
 import { CreateTicketDto } from './dto/create-ticket.dto';
-import { UsersService } from 'src/users/users.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class TicketsService {
@@ -12,7 +12,7 @@ export class TicketsService {
   constructor(
     @InjectModel(Ticket.name)
     private readonly ticketModel: Model<TicketDocument>,
-    private usersService: UsersService,
+    private jwtService: JwtService,
   ) {}
 
   async findAll(): Promise<Ticket[]> {
@@ -29,22 +29,28 @@ export class TicketsService {
     return result;
   }
 
-  async update(id: string, ticket: Partial<Ticket>, username: string) {
-    await this.canModify(id, username);
+  async update(id: string, ticket: Partial<Ticket>, jwt: string) {
+    await this.canModify(id, jwt);
     await this.ticketModel.findByIdAndUpdate(id, ticket).exec();
     return this.ticketModel.findById(id);
   }
 
-  async delete(id: string, username: string) {
-    await this.canModify(id, username);
+  async delete(id: string, jwt: string) {
+    await this.canModify(id, jwt);
     return await this.ticketModel.findByIdAndDelete(id).exec();
   }
-  // Backend Modification/Deletion authorization check, works but might need refactoring
-  async canModify(id: string, username: string) {
+
+  // Is it better to decode a jwt everytime or query a user everytime?
+  // This one does look a bit cleaner so I'll go with it
+  async canModify(id: string, jwt: string) {
+    jwt = jwt.replace('Bearer ', '');
+    const jwtInfos = this.jwtService.decode(jwt, { json: true }) as {
+      username: string;
+      isModerator: boolean;
+    };
     const found = await this.ticketModel.findById(id);
     if (found === null) return;
-    const isMod = await this.usersService.isModerator(username);
-    if (!isMod && found.from !== username) {
+    if (!jwtInfos.isModerator && found.from !== jwtInfos.username) {
       throw new UnauthorizedException();
     }
   }
