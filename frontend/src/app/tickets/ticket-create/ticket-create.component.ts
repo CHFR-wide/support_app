@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { TicketCreate } from '../ticket-create.model';
@@ -10,7 +11,7 @@ import { TicketsService } from '../tickets.service';
   templateUrl: './ticket-create.component.html',
   styleUrls: ['./ticket-create.component.css']
 })
-export class TicketCreateComponent implements OnInit {
+export class TicketCreateComponent {
   tagIndividualInput = '';
   tagArrayInput : string[] = [];
 
@@ -19,9 +20,38 @@ export class TicketCreateComponent implements OnInit {
   constructor(
     public ticketsService: TicketsService,
     private router: Router,
+    public dialog: MatDialog,
+  ) {};
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(TicketDialogComponent, {
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(ticket => {
+      this.ticketsService.addTicket(ticket).subscribe();
+      this.ticketsService.sendListUpdate();
+      this.router.navigateByUrl('/');
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-ticket-create',
+  templateUrl: './ticket-create-dialog.html',
+})
+export class TicketDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<TicketDialogComponent>,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-  ) {};
+  ) {}
+
+  createForm!: FormGroup;
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
@@ -48,8 +78,6 @@ export class TicketCreateComponent implements OnInit {
       status: 'nouveau',
       from: username,
     };
-    this.ticketsService.addTicket(ticket).subscribe();
-    this.ticketsService.sendListUpdate();
-    this.router.navigateByUrl('/');
+    this.dialogRef.close(ticket)
   }
 }
