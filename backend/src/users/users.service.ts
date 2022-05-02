@@ -34,4 +34,9 @@ export class UsersService {
     const result = await newUser.save();
     return result;
   }
+
+  async isModerator(username: string): Promise<boolean> {
+    const usr = await this.findOneByUsername(username);
+    return usr.isModerator;
+  }
 }
