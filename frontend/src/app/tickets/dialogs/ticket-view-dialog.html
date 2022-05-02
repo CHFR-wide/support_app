@@ -1,8 +1,17 @@
-<h2>{{ data.issue }} - {{ data.status }}</h2>
-<p>De {{ data.from }}, le {{ data.created | date : 'short' }}</p>
-<p>{{ data.type }}</p>
-<p>{{ data.severity }}</p>
-<p>{{ data.priority }}</p>
-<p *ngFor="let tag of data.tags">- {{ tag }}</p>
-<p>Description : {{ data.description }}</p>
+<h2>[{{ data.status }}] {{ data.issue }}</h2>
+De {{ data.from }}
+<br>
+le {{ data.created | date : 'short' }}
+<div class="ticket-infos">
+  <p><b>Type : </b>{{ data.type }}</p>
+  <p><b>Sévérité : </b>{{ data.severity }}</p>
+  <p><b>Priorité : </b>{{ data.priority }}</p>
+</div>
+<div class="tags-wrapper">
+  <span><b>Tags :&nbsp;</b></span>
+  <mat-chip-list>
+    <mat-chip *ngFor="let tag of data.tags">{{ tag }}</mat-chip>
+  </mat-chip-list>
+</div>
+<p><b>Description : </b>{{ data.description }}</p>
 <button mat-raised-button color="primary" (click)="onNoClick()">Fermer</button>
