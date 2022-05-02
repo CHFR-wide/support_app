@@ -4,19 +4,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { AuthService } from "../../auth/auth.service";
 import { TicketCreate } from "../ticket-create.model";
 
-export interface TicketDialogData {
-  ticket: TicketCreate;
-}
-
 @Component({
-  selector: 'dialog-ticket-create',
-  templateUrl: './ticket-create-dialog.html',
+  selector: 'ticket-create-edit-dialog',
+  templateUrl: './ticket-create-edit-dialog.html',
 })
 export class TicketDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<TicketDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: TicketCreate,
     public authService: AuthService,
-    @Inject(MAT_DIALOG_DATA) public data: TicketDialogData,
     private formBuilder: FormBuilder,
   ) {}
 
@@ -28,13 +24,13 @@ export class TicketDialogComponent {
 
   ngOnInit(): void {
     this.ticketForm = this.formBuilder.group({
-      issue:        [this.data.ticket.issue, Validators.required],
-      description:  [this.data.ticket.description, Validators.required],
-      tags:         [this.data.ticket.tags.join(',')],
-      type:         [this.data.ticket.type, Validators.required],
-      severity:     [this.data.ticket.severity, Validators.required],
-      priority:     [this.data.ticket.priority, Validators.required],
-      status:       [this.data.ticket.status],
+      issue:        [this.data.issue, Validators.required],
+      description:  [this.data.description, Validators.required],
+      tags:         [this.data.tags.join(',')],
+      type:         [this.data.type, Validators.required],
+      severity:     [this.data.severity, Validators.required],
+      priority:     [this.data.priority, Validators.required],
+      status:       [this.data.status],
     })
   }
 

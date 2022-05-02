@@ -29,6 +29,8 @@ import { TicketCreateComponent } from './tickets/ticket-create/ticket-create.com
 import { TicketDialogComponent } from './tickets/dialogs/ticket-create-edit-dialog.component';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
 import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
+import { TicketViewComponent } from './tickets/ticket-view/ticket-view.component';
+import { TicketViewDialogComponent } from './tickets/dialogs/ticket-view-dialog.component';
 
 
 const routes: Routes = [
@@ -44,8 +46,10 @@ const routes: Routes = [
     RegisterComponent,
     TicketCreateComponent,
     TicketDialogComponent,
+    TicketViewDialogComponent,
     TicketEditComponent,
     TicketListComponent,
+    TicketViewComponent,
   ],
   imports: [
     BrowserAnimationsModule,

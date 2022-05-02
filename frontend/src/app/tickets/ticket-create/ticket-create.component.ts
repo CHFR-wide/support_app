@@ -31,7 +31,7 @@ export class TicketCreateComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(TicketDialogComponent, {
       width: '600px',
-      data: { ticket: this.blankTicket },
+      data: this.blankTicket,
     });
 
     dialogRef.afterClosed().subscribe(ticket => {

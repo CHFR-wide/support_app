@@ -1,4 +1,4 @@
-<h2>Créer un ticket</h2>
+<h2>{{ data.issue ? 'Modifier' : 'Créer' }} un ticket</h2>
 
 <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
@@ -65,7 +65,7 @@
             color="primary"
             type="submit"
             [disabled]="!ticketForm.valid">
-      Créer le ticket
+      {{ data.issue ? 'Modifier' : 'Créer' }}
     </button>
     <button mat-raised-button
             type="button"

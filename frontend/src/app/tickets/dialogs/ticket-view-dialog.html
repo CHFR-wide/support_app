@@ -1,0 +1,8 @@
+<h2>{{ data.issue }} - {{ data.status }}</h2>
+<p>De {{ data.from }}, le {{ data.created | date : 'short' }}</p>
+<p>{{ data.type }}</p>
+<p>{{ data.severity }}</p>
+<p>{{ data.priority }}</p>
+<p *ngFor="let tag of data.tags">- {{ tag }}</p>
+<p>Description : {{ data.description }}</p>
+<button mat-raised-button color="primary" (click)="onNoClick()">Fermer</button>

@@ -33,8 +33,9 @@
   </ng-container>
 
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
     <td mat-cell *matCellDef="let ticket">
+      <app-ticket-view [ticket]="ticket"></app-ticket-view>
       <app-ticket-edit *ngIf="ticket.from === authService.getUsername() || authService.isUserModerator()" [ticket]="ticket"></app-ticket-edit>
     </td>
   </ng-container>
