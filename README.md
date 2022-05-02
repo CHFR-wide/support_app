@@ -91,8 +91,8 @@ loginDto
 
 ```js
 {
-    username: string
-    password: string
+    username: string,
+    password: string,
 }
 ```
 
@@ -100,10 +100,10 @@ registerDto
 
 ```js
 {
-    username: string
-    password: string
-    passwordConfirm: string
-    isModerator: boolean
+    username: string,
+    password: string,
+    passwordConfirm: string,
+    isModerator: boolean,
 }
 ```
 
