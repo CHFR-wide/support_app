@@ -1,20 +1,44 @@
-<ul *ngIf="tickets.length > 0">
-  <li *ngFor="let ticket of tickets">
-    <ng-template [ngIf]="!isEdited(ticket._id)">
-      <ul>
-        <li>Problème : {{ ticket.issue }}</li>
-        <li>Description : {{ ticket.description }}</li>
-        <li>Tags : {{ ticket.tags.join(", ") }}</li>
-        <li>Type : {{ ticket.type }}</li>
-        <li>Sévérité : {{ ticket.severity }}</li>
-        <li>Priorité : {{ ticket.priority }}</li>
-        <li>Status : {{ ticket.status }}</li>
-        <li>De : {{ ticket.from }}</li>
-        <li>Créé le : {{ ticket.created | date : 'short' }}</li>
-      </ul>
-      <app-ticket-edit *ngIf="ticket.from === authService.getUsername() || authService.isUserModerator()" [ticket]="ticket" (editDone)="endEdit($event)"></app-ticket-edit>
-    </ng-template>
-  </li>
-</ul>
-<p *ngIf="tickets.length == 0">Rien à afficher</p>
+<table mat-table [dataSource]="dataSource" matSort>
 
+  <ng-container matColumnDef="issue">
+    <th mat-header-cell *matHeaderCellDef>Problème</th>
+    <td mat-cell *matCellDef="let ticket"> {{ ticket.issue }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="from">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Auteur</th>
+    <td mat-cell *matCellDef="let ticket"> {{ ticket.from }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+    <td mat-cell *matCellDef="let ticket"> {{ ticket.status }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+    <td mat-cell *matCellDef="let ticket"> {{ ticket.type }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="severity">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sévérité</th>
+    <td mat-cell *matCellDef="let ticket"> {{ ticket.severity }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="created">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Créé le</th>
+    <td mat-cell *matCellDef="let ticket">
+      {{ ticket.created | date : 'short' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+    <td mat-cell *matCellDef="let ticket">
+      <app-ticket-edit *ngIf="ticket.from === authService.getUsername() || authService.isUserModerator()" [ticket]="ticket"></app-ticket-edit>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

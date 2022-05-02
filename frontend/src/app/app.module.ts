@@ -1,31 +1,35 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router'
 
-import {RouterModule, Routes} from '@angular/router'
-
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 import { TicketCreateComponent } from './tickets/ticket-create/ticket-create.component';
 import { TicketDialogComponent } from './tickets/dialogs/ticket-create-edit-dialog.component';
-import { HeaderComponent } from './header/header.component';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
-import { LoginComponent } from './auth/login/login.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RegisterComponent } from './auth/register/register.component';
-import { LogoutComponent } from './auth/logout/logout.component';
-import { AuthInterceptor } from './auth/auth.interceptor';
 import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatOptionModule } from '@angular/material/core';
+
 
 const routes: Routes = [
   { path: '', component: AppComponent },
@@ -34,30 +38,34 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    TicketCreateComponent,
     HeaderComponent,
-    TicketListComponent,
     LoginComponent,
-    RegisterComponent,
     LogoutComponent,
-    TicketEditComponent,
+    RegisterComponent,
+    TicketCreateComponent,
     TicketDialogComponent,
+    TicketEditComponent,
+    TicketListComponent,
   ],
   imports: [
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     MatButtonModule,
     MatCardModule,
-    MatToolbarModule,
-    MatSelectModule,
     MatCheckboxModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatInputModule,
+    MatExpansionModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule,
   ],
   providers: [
     {

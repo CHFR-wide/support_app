@@ -17,10 +17,6 @@ export class TicketEditComponent{
   ticket!: TicketGet;
   editForm!: FormGroup;
 
-  @Output()
-  editDone: EventEmitter<string> = new EventEmitter<string>()
-
-
   constructor(
     public ticketsService: TicketsService,
     public authService: AuthService,
@@ -37,7 +33,6 @@ export class TicketEditComponent{
       if (!ticket) return;
       this.ticketsService.editTicket(ticket, this.ticket._id).subscribe();
       this.ticketsService.sendListUpdate();
-      this.editDone.emit(this.ticket._id);
     });
   }
 }

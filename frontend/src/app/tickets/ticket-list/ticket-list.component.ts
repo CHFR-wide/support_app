@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs'
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -10,10 +12,14 @@ import { TicketsService } from '../tickets.service';
   templateUrl: './ticket-list.component.html',
   styleUrls: ['./ticket-list.component.css']
 })
-export class TicketListComponent{
-  tickets: TicketGet[] = []
+export class TicketListComponent implements AfterViewInit{
   sub: Subscription = new Subscription;
   editing: string[] = [];
+  dataSource = new MatTableDataSource<TicketGet>();
+  displayedColumns: string[] = ['issue','from','status','type','severity','created','actions',]
+
+  @ViewChild(MatSort) sort!: MatSort;
+
 
   constructor(
     public ticketsService: TicketsService,
@@ -27,21 +33,16 @@ export class TicketListComponent{
     );
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
   getTickets() {
     this.ticketsService.getTickets().subscribe(
-      (found: TicketGet[]) => {this.tickets = found}
+      (found: TicketGet[]) => {
+        this.dataSource.data = found;
+        console.dir(this.dataSource.data)
+      }
     );
-  }
-
-  editTicket(id: string){
-    this.editing.push(id);
-  }
-
-  isEdited(id: string){
-    return this.editing.findIndex((e) => e === id) !== -1;
-  }
-
-  endEdit(id: string){
-    this.editing = this.editing.filter((e) => e!== id);
   }
 }
